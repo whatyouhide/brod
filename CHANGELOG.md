@@ -1,5 +1,12 @@
 # Changelog
 
+- 4.6.4
+  - Fix a producer `function_clause` crash on stale produce responses. With
+    `partition_onwire_limit` greater than 1, the first response with a retriable
+    error put all requests on wire back in the buffer. The response for the next
+    request then crashed the producer. The producer now ignores responses for
+    requests that are no longer on wire.
+
 - 4.6.3
   - Add `fenced_member_action` for static group members. The default `retry`
     action keeps trying to take back a shared `group_instance_id`. The new
